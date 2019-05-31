@@ -1,0 +1,24 @@
+{
+  "name": "videoholics-app",
+  "version": "1.0.0",
+  "description": "videoholics server",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon app.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "express-readme": "0.0.5",
+    "ffmpeg": "0.0.4",
+    "file-system": "^2.2.2",
+    "fluent-ffmpeg": "^2.1.2",
+    "formidable": "^1.1.1",
+    "fs": "0.0.1-security",
+    "http-server": "^0.10.0",
+    "path": "^0.12.7",
+    "winston": "^2.3.1"
+  }
+}
