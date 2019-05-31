@@ -13,6 +13,8 @@ const {
   /* ffmpeg encoder module */
   const encoder = require('../encoder.js');
 
+  let responses;
+
   /* speech to text converter module */
   const converter = require('../speechToTextConverter.js');
   
@@ -50,8 +52,15 @@ const {
         })
         // save to file
         .save('./uploads/giant.wav');
-    }).then(response => res.body = response);
-    
+    }).then(response => {
+        responses = response;
+        res.body = response
+    });
+
+    router.get('/responses', rawBodyParser, function(req, resp) {
+        console.log(JSON.stringify(responses));
+        resp.send(responses);
+    });
     
   });
   

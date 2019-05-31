@@ -48,11 +48,12 @@ async function convert(fileName) {
         { degree: "MSc", field_of_study: "Computer Science" }
       ],
       work_experiences: [{ title: "Data Scientist" }],
-      technical_skills: ["Java", "C++", "Git", "Spark"],
+      technical_skills: ["Java", "C++", "Git", "Spark", "node.js"],
       soft_skills: ["communication", "attention to detail"]
     }
   });
-  return respFromDS;
+  return {respFromNER: respFromNER.data.response[0], respFromSummary: respFromSummary.data.summaries[0],
+    respFromMatching: respFromMatching.data};
 }
 
 module.exports = convert;
