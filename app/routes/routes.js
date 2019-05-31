@@ -38,6 +38,7 @@ const {
   router.post('/giant', rawBodyParser, function(req, res) {
     winston.info('Request Recieved - from browser');
     fs.writeFileSync("./uploads/giant.odd", req.body, 'binary');
+    encodeAndDownload('wav', "./uploads/giant.odd", res);
   });
   
   const generateId = () => parseInt(Math.random() * 1000000000)
