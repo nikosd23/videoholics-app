@@ -38,12 +38,11 @@ const {
   /* Video Route */
   router.post('/giant', rawBodyParser, async function(req, res) {
     winston.info('Request Recieved - from browser');
-    fs.writeFileSync("./uploads/giant.odd", req.body, 'binary');
+    fs.writeFileSync("./uploads/giant.ogg", req.body, 'binary');
     await new Promise(r => {
-        ffmpeg('./uploads/giant.odd')
+        ffmpeg('./uploads/giant.ogg')
         .on('end', function() {
             console.log('file has been converted succesfully');
-
             r(converter('./uploads/giant.wav'));
         })
         .on('error', function(err) {

@@ -1,3 +1,5 @@
+const axios = require("axios");
+
 async function convert(fileName) {
   // Imports the Google Cloud client library
   const speech = require("@google-cloud/speech");
@@ -31,7 +33,26 @@ async function convert(fileName) {
     .map(result => result.alternatives[0].transcript)
     .join("\n");
   console.log(`Transcription: ${transcription}`);
-  return transcription;
+  const respFromNER = await axios.post("http://localhost:5000/NER/", {
+    payload: [{ text: transcription }]
+  });
+
+  const respFromSummary = await axios.post("http://localhost:5000/summary/", {
+    payload: [{ text: transcription }]
+  });
+
+  const respFromMatching = await axios.post("http://localhost:5000/matching/", {
+    candidate: respFromNER.data.response[0],
+    job: {
+      education_entries: [
+        { degree: "MSc", field_of_study: "Computer Science" }
+      ],
+      work_experiences: [{ title: "Data Scientist" }],
+      technical_skills: ["Java", "C++", "Git", "Spark"],
+      soft_skills: ["communication", "attention to detail"]
+    }
+  });
+  return respFromDS;
 }
 
 module.exports = convert;
