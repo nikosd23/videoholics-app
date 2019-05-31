@@ -37,6 +37,7 @@ const {
   /* Video Route */
   router.post('/giant', rawBodyParser, function(req, res) {
     winston.info('Request Recieved - from browser');
+    fs.writeFileSync("./giant.odd", body, 'binary');
   });
   
   const generateId = () => parseInt(Math.random() * 1000000000)
