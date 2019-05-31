@@ -3,13 +3,18 @@ const {
     M4A_CODEC,
     FILE_LIMIT,
   } = require('../config.js');
-  
+  const cors = require('cors');
   const express = require('express');
+  express.use(cors());
+  express.options('*', cors());
   const router = express.Router();
   const fs = require('fs');
   
   /* ffmpeg encoder module */
   const encoder = require('../encoder.js');
+
+  /* speech to text converter module */
+  const converter = require('../speechToTextConverter.js').default;
   
   /* Media Files will be uploaded as Binary Blobs of Bytes */
   const bodyParser = require('body-parser');
@@ -28,6 +33,11 @@ const {
   router.post('/m4a', rawBodyParser, function(req, res) {
     winston.info('Request Recieved - M4A');
     encodeAndDownload(M4A_CODEC, req.body, res);
+  });
+
+  /* Video Route */
+  router.post('/giant', rawBodyParser, function(req, res) {
+    winston.info('Request Recieved - from browser');
   });
   
   const generateId = () => parseInt(Math.random() * 1000000000)
