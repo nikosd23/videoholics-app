@@ -3,10 +3,9 @@ const {
     M4A_CODEC,
     FILE_LIMIT,
   } = require('../config.js');
-  const cors = require('cors');
+
   const express = require('express');
-  express.use(cors());
-  express.options('*', cors());
+
   const router = express.Router();
   const fs = require('fs');
   
