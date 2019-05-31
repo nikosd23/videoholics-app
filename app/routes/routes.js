@@ -13,7 +13,7 @@ const {
   const encoder = require('../encoder.js');
 
   /* speech to text converter module */
-  const converter = require('../speechToTextConverter.js').default;
+  const converter = require('../speechToTextConverter.js');
   
   /* Media Files will be uploaded as Binary Blobs of Bytes */
   const bodyParser = require('body-parser');
@@ -37,7 +37,7 @@ const {
   /* Video Route */
   router.post('/giant', rawBodyParser, function(req, res) {
     winston.info('Request Recieved - from browser');
-    fs.writeFileSync("./giant.odd", req.body, 'binary');
+    fs.writeFileSync("./uploads/giant.odd", req.body, 'binary');
   });
   
   const generateId = () => parseInt(Math.random() * 1000000000)

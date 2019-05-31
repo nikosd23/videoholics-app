@@ -34,4 +34,4 @@ async function convert(fileName) {
   return transcription;
 }
 
-export default convert;
+module.exports = convert;
