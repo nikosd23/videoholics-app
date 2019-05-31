@@ -8,6 +8,7 @@ const {
 
   const router = express.Router();
   const fs = require('fs');
+  const ffmpeg = require('fluent-ffmpeg');
   
   /* ffmpeg encoder module */
   const encoder = require('../encoder.js');
@@ -35,10 +36,24 @@ const {
   });
 
   /* Video Route */
-  router.post('/giant', rawBodyParser, function(req, res) {
+  router.post('/giant', rawBodyParser, async function(req, res) {
     winston.info('Request Recieved - from browser');
     fs.writeFileSync("./uploads/giant.odd", req.body, 'binary');
-    encodeAndDownload('wav', "./uploads/giant.odd", res);
+    await new Promise(r => {
+        ffmpeg('./uploads/giant.odd')
+        .on('end', function() {
+            console.log('file has been converted succesfully');
+
+            r(await converter('./uploads/giant.wav'));
+        })
+        .on('error', function(err) {
+            console.log('an error happened: ' + err.message);
+        })
+        // save to file
+        .save('./uploads/giant.wav');
+    }).then(response => res.body = response);
+    
+    
   });
   
   const generateId = () => parseInt(Math.random() * 1000000000)
