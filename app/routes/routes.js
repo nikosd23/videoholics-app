@@ -44,7 +44,7 @@ const {
         .on('end', function() {
             console.log('file has been converted succesfully');
 
-            r(await converter('./uploads/giant.wav'));
+            r(converter('./uploads/giant.wav'));
         })
         .on('error', function(err) {
             console.log('an error happened: ' + err.message);
